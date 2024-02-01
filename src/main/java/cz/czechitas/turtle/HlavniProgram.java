@@ -2,48 +2,52 @@ package cz.czechitas.turtle;
 
 import dev.czechitas.java1.turtle.engine.Turtle;
 
+import java.awt.*;
+
 public class HlavniProgram {
     private Turtle zofka = new Turtle();
-    private final double strana = 50;
+//    private final double strana = 50;
 
     public static void main(String[] args) {
         new HlavniProgram().start();
     }
 
     public void start() {
+        double strana = 100;
         zofka.penUp();
         zofka.turnLeft(90);
         zofka.move(5 * strana);
         zofka.turnRight(90);
 
-        nakresliRovnostrannyTrojuhelnik();
+        nakresliRovnostrannyTrojuhelnik(strana, Color.BLUE);
 
         zofka.turnRight(90);
         zofka.move(2 * strana);
         zofka.turnLeft(90);
 
-        nakresliRovnoramennyTrojuhelnik();
-
-        zofka.turnRight(90);
-        zofka.move(3 * strana);
-        zofka.turnLeft(90);
-
-        nakresliCtverec();
+        nakresliRovnoramennyTrojuhelnik(2 * strana, strana, Color.CYAN);
 
         zofka.turnRight(90);
         zofka.move(2 * strana);
         zofka.turnLeft(90);
 
-        nakresliObdelnik();
+        nakresliCtverec(strana, Color.BLACK);
+
+        zofka.turnRight(90);
+        zofka.move(2 * strana);
+        zofka.turnLeft(90);
+
+        nakresliObdelnik(strana, 2 * strana, Color.GREEN);
 
         zofka.turnRight(90);
         zofka.move(3 * strana);
         zofka.turnLeft(90);
 
-        nakresliKruznici();
+        nakresliKruznici(strana, Color.YELLOW);
     }
 
-    private void nakresliRovnostrannyTrojuhelnik() {
+    private void nakresliRovnostrannyTrojuhelnik(double strana, Color barva) {
+        zofka.setPenColor(barva);
         zofka.turnRight(30);
         zofka.penDown();
         for (int i = 0; i < 3; i++) {
@@ -56,23 +60,24 @@ public class HlavniProgram {
         zofka.turnRight(90);
     }
 
-    private void nakresliRovnoramennyTrojuhelnik() {
-        double stranaA = Math.sqrt(10 * Math.pow(strana, 2));
-        double uhel = Math.toDegrees(Math.asin(strana / stranaA));
+    private void nakresliRovnoramennyTrojuhelnik(double stranaA, double stranaB, Color barva) {
+        zofka.setPenColor(barva);
+        double uhel = Math.toDegrees(Math.acos((stranaB / 2) / stranaA));
 
-        zofka.turnRight(uhel);
+        zofka.turnRight(90 - uhel);
         zofka.penDown();
         zofka.move(stranaA);
-        zofka.turnRight(180 - 2 * uhel);
+        zofka.turnRight(2 * uhel);
         zofka.move(stranaA);
-        zofka.turnRight(90 + uhel);
-        zofka.move(2 * strana);
+        zofka.turnRight(180 - uhel);
+        zofka.move(stranaB);
 
         zofka.penUp();
         zofka.turnRight(90);
     }
 
-    private void nakresliCtverec() {
+    private void nakresliCtverec(double strana, Color barva) {
+        zofka.setPenColor(barva);
         zofka.penDown();
         for (int i = 0; i < 4; i++) {
             zofka.move(strana);
@@ -81,21 +86,23 @@ public class HlavniProgram {
         zofka.penUp();
     }
 
-    private void nakresliObdelnik() {
+    private void nakresliObdelnik(double stranaA, double stranaB, Color barva) {
+        zofka.setPenColor(barva);
         zofka.penDown();
         for (int i = 0; i < 2; i++) {
-            zofka.move(strana);
+            zofka.move(stranaA);
             zofka.turnRight(90);
-            zofka.move(2 * strana);
+            zofka.move(stranaB);
             zofka.turnRight(90);
         }
         zofka.penUp();
     }
 
-    private void nakresliKruznici() {
+    private void nakresliKruznici(double prumer, Color barva) {
+        zofka.setPenColor(barva);
         zofka.penDown();
         for (int i = 0; i <= 50; i++) {
-            zofka.move(strana / 10);
+            zofka.move(prumer / 15);
             zofka.turnRight(360 / 50);
         }
         zofka.penUp();
