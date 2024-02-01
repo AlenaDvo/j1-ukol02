@@ -14,36 +14,27 @@ public class HlavniProgram {
 
     public void start() {
         double strana = 100;
+
         zofka.penUp();
         zofka.turnLeft(90);
         zofka.move(5 * strana);
         zofka.turnRight(90);
 
-        nakresliRovnostrannyTrojuhelnik(strana, Color.BLUE);
-
-        zofka.turnRight(90);
-        zofka.move(2 * strana);
-        zofka.turnLeft(90);
-
-        nakresliRovnoramennyTrojuhelnik(2 * strana, strana, Color.CYAN);
-
-        zofka.turnRight(90);
-        zofka.move(2 * strana);
-        zofka.turnLeft(90);
-
-        nakresliCtverec(strana, Color.BLACK);
-
-        zofka.turnRight(90);
-        zofka.move(2 * strana);
-        zofka.turnLeft(90);
-
-        nakresliObdelnik(strana, 2 * strana, Color.GREEN);
+        nakresliZmrzlinu(strana, 2 * strana, strana, Color.RED, Color.DARK_GRAY);
 
         zofka.turnRight(90);
         zofka.move(3 * strana);
         zofka.turnLeft(90);
 
-        nakresliKruznici(strana, Color.YELLOW);
+    }
+
+    private void nakresliZmrzlinu(double prumer, double delsiStrana, double kratsiStrana, Color barvaKopecku, Color barvaKornoutku) {
+        nakresliKruznici(prumer, barvaKopecku);
+        zofka.turnRight(90);
+        zofka.move(prumer);
+        zofka.turnRight(90);
+        nakresliRovnoramennyTrojuhelnik(delsiStrana, kratsiStrana, barvaKornoutku);
+        zofka.turnLeft(180);
     }
 
     private void nakresliRovnostrannyTrojuhelnik(double strana, Color barva) {
@@ -102,7 +93,7 @@ public class HlavniProgram {
         zofka.setPenColor(barva);
         zofka.penDown();
         for (int i = 0; i <= 50; i++) {
-            zofka.move(prumer / 15);
+            zofka.move(prumer / 16);
             zofka.turnRight(360 / 50);
         }
         zofka.penUp();
